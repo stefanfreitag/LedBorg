@@ -1,0 +1,150 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
+    }
+}
+
+plugins {
+    id 'application'
+    id 'idea'
+    id 'jacoco'
+    id 'java'
+    id 'com.github.kt3k.coveralls' version '2.0.1'
+    id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.0'
+}
+
+
+project.description = 'LedBorg Library'
+project.version = '1.0'
+
+mainClassName = 'de.freitag.stefan.ledbord.demo.LedBorgDemo'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'com.pi4j', name: 'pi4j-core', version: '0.0.5'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.1'
+}
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+
+def pomConfig = {
+    inceptionYear '2015'
+
+    licenses {
+        license {
+            name "The MIT License (MIT)"
+            url "https://github.com/stefanfreitag/LedBorg/blob/master/LICENSE"
+            distribution "repo"
+        }
+    }
+
+    scm {
+        connection 'scm:git:https://github.com/stefanfreitag/LedBorg/'
+        developerConnection 'scm:git:https://github.com/stefanfreitag/LedBorg/'
+        url 'https://github.com/stefanfreitag/LedBorg/'
+    }
+    developers {
+        developer {
+            id "sfreitag"
+            name "Stefan Freitag"
+            email "stefan@stefreitag.de"
+            timezone "Europe/Berlin"
+            roles {
+                role "developer"
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact sourcesJar
+            artifact javadocJar
+            artifact distZip
+
+            groupId 'de.freitag.stefan'
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Java Library for accessing the LedBorg hardware')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintrayUpload.dependsOn(build)
+
+bintray {
+    if (!project.hasProperty('bintray_user')) {
+        project.ext.bintray_user = 'default'
+    }
+    if (!project.hasProperty('bintray_api_key')) {
+        project.ext.bintray_api_key = 'default'
+    }
+
+    user = "$bintray_user"
+    key = "$bintray_api_key"
+    publications = ['mavenJava']
+    dryRun = false
+    publish = true
+    pkg {
+        repo = 'maven'
+        name = 'LedBorg'
+        desc = 'Java Library for accessing the LedBorg hardware.'
+        websiteUrl = 'https://github.com/stefanfreitag/LedBorg/'
+        issueTrackerUrl = 'https://github.com/stefanfreitag/LedBorg/issues'
+        vcsUrl = 'git://github.com/stefanfreitag/LedBorg.git'
+        licenses = ['MIT']
+        labels = []
+        publicDownloadNumbers = true
+	version {
+	    name = '1.0'
+            vcsTag = '1.0'
+            gpg {
+              sign = true
+              passphrase = gpg_passphrase
+            }
+        }
+    }
+}
