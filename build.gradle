@@ -40,6 +40,17 @@ compileJava {
     targetCompatibility = 1.8
 }
 
+
+jar {
+    exclude('log4j2.xml')
+    manifest {
+        attributes 'Implementation-Title': 'LedBorg Library',
+                'Implementation-Version': version,
+                'Implementation-Vendor': 'Stefan Freitag',
+                'Created-By': System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')'
+    }
+}
+
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource

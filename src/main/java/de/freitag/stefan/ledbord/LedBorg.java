@@ -6,7 +6,14 @@ import com.pi4j.wiringpi.SoftPwm;
 
 import java.awt.*;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
+/**
+ * Interfaces with LedBorg hardware.
+ *
+ * @author Stefan Freitag (stefan@stefreitag.de)
+ */
 public final class LedBorg {
 
     /**
@@ -23,11 +30,16 @@ public final class LedBorg {
      */
     private Color color;
 
+    private boolean isBlinking;
+
+    private Timer blinkTimer;
+
     /**
      * Initialize the LedBorg with the default pin layout given in {@link #LAYOUT}.
      */
     public LedBorg() {
         this.layout = LAYOUT;
+        this.isBlinking = false;
         this.color = Color.BLACK;
     }
 
@@ -42,20 +54,20 @@ public final class LedBorg {
         this.layout = layout;
     }
 
-
+    /**
+     * Setup the communication with the LedBorg.
+     */
     public void setup() {
         this.setupGpio(this.layout);
         this.setupPwm(this.layout);
         this.off();
     }
 
-    private void setupPwm(final PinLayout pinLayout) {
-        assert pinLayout != null;
-        SoftPwm.softPwmCreate(pinLayout.getRed().getAddress(), 0, 50);
-        SoftPwm.softPwmCreate(pinLayout.getGreen().getAddress(), 0, 50);
-        SoftPwm.softPwmCreate(pinLayout.getBlue().getAddress(), 0, 50);
-    }
-
+    /**
+     * Setup the Raspberry Pi pin configuration.
+     *
+     * @param pinLayout The pin layout to use.
+     */
     private void setupGpio(final PinLayout pinLayout) {
         assert pinLayout != null;
         final GpioController gpio = GpioFactory.getInstance();
@@ -70,6 +82,13 @@ public final class LedBorg {
         ledBlue.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
     }
 
+    private void setupPwm(final PinLayout pinLayout) {
+        assert pinLayout != null;
+        SoftPwm.softPwmCreate(pinLayout.getRed().getAddress(), 0, 50);
+        SoftPwm.softPwmCreate(pinLayout.getGreen().getAddress(), 0, 50);
+        SoftPwm.softPwmCreate(pinLayout.getBlue().getAddress(), 0, 50);
+    }
+
     public void displayColor(final Color color) {
         if (color == null) {
             throw new IllegalArgumentException("Color is null");
@@ -81,12 +100,62 @@ public final class LedBorg {
         this.color = color;
     }
 
+    /**
+     * Turn off the LedBorg by setting the displayed color to
+     * {@code Color.Black}
+     */
     public void off() {
-        this.displayColor(Color.BLACK);
+        SoftPwm.softPwmWrite(layout.getRed().getAddress(), 0);
+        SoftPwm.softPwmWrite(layout.getGreen().getAddress(), 0);
+        SoftPwm.softPwmWrite(layout.getBlue().getAddress(), 0);
     }
 
+    /**
+     * Return the displayed {@link Color}.
+     *
+     * @return The displayed {@link Color}.
+     */
     public Color getDisplayedColor() {
         return this.color;
     }
 
+    /**
+     * Return if the LedBorg is blinking or not.
+     *
+     * @return {@code true} if the LedBorg is blinking, {@code false} otherwise.
+     */
+    public boolean isBlinking() {
+        return this.isBlinking;
+    }
+
+    public void blink(final boolean enable) {
+        this.isBlinking = enable;
+        if (enable) {
+            blinkTimer = new Timer("Blink Timer");
+            blinkTimer.schedule(new BlinkTask(), 0, 200);
+        } else {
+            if (blinkTimer != null) {
+                blinkTimer.cancel();
+                blinkTimer = null;
+            }
+        }
+    }
+
+    private class BlinkTask extends TimerTask {
+
+        private boolean toggle = false;
+
+        /**
+         * The action to be performed by this timer task.
+         */
+        @Override
+        public void run() {
+            if (toggle) {
+                LedBorg.this.displayColor(LedBorg.this.getDisplayedColor());
+            } else {
+                LedBorg.this.off();
+            }
+            toggle = !toggle;
+        }
+    }
 }
