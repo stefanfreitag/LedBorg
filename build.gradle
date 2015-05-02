@@ -15,12 +15,12 @@ plugins {
     id 'java'
     id 'com.github.kt3k.coveralls' version '2.0.1'
     id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.0'
+    id 'com.jfrog.bintray' version '1.1'
 }
 
 
 project.description = 'LedBorg Library'
-project.version = '1.0'
+project.version = '1.1'
 
 mainClassName = 'de.freitag.stefan.ledbord.demo.LedBorgDemo'
 
@@ -38,6 +38,17 @@ dependencies {
 compileJava {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+}
+
+
+jar {
+    exclude('log4j2.xml')
+    manifest {
+        attributes 'Implementation-Title': 'LedBorg Library',
+                'Implementation-Version': version,
+                'Implementation-Vendor': 'Stefan Freitag',
+                'Created-By': System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')'
+    }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -99,11 +110,13 @@ def pomConfig = {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            artifact jar
             artifact sourcesJar
             artifact javadocJar
             artifact distZip
 
             groupId 'de.freitag.stefan'
+            artifactId 'ledborg'
             pom.withXml {
                 def root = asNode()
                 root.appendNode('description', 'Java Library for accessing the LedBorg hardware')
@@ -139,12 +152,12 @@ bintray {
         labels = []
         publicDownloadNumbers = true
 	version {
-	    name = '1.0'
-            vcsTag = '1.0'
-            gpg {
-              sign = true
-              passphrase = gpg_passphrase
-            }
+        name = project.version
+        vcsTag = project.version
+        gpg {
+            sign = true
+            passphrase = project.hasProperty('gpg_passphrase') ? gpg_passphrase : ''
+        }
         }
     }
 }

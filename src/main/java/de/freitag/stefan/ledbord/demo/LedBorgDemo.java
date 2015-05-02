@@ -25,7 +25,6 @@ public final class LedBorgDemo {
     public static void main(final String[] args) {
         final LedBorg ledborg = new LedBorg();
         ledborg.setup();
-
         int i = 0;
         while (true) {
             final Color color = colors[i++ % colors.length];
@@ -40,6 +39,11 @@ public final class LedBorgDemo {
         }
     }
 
+    /**
+     * Return the {@link Logger} for this class.
+     *
+     * @return The {@link Logger} for this class.
+     */
     private static Logger getLogger() {
         return LogManager.getLogger(LedBorgDemo.class.getCanonicalName());
     }
