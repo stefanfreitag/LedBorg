@@ -1,12 +1,13 @@
 package de.freitag.stefan.ledbord;
 
 import com.pi4j.io.gpio.RaspiPin;
+import de.freitag.stefan.ledborg.PinLayout;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test class for {@link de.freitag.stefan.ledbord.PinLayout}.
+ * Test class for {@link PinLayout}.
  */
 public final class PinLayoutTest {
 

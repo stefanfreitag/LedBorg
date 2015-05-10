@@ -1,4 +1,4 @@
-package de.freitag.stefan.ledbord;
+package de.freitag.stefan.ledborg;
 
 import com.pi4j.io.gpio.Pin;
 

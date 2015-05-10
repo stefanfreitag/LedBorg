@@ -1,4 +1,4 @@
-package de.freitag.stefan.ledbord;
+package de.freitag.stefan.ledborg;
 
 /**
  * Allowed blink rates in milliseconds.

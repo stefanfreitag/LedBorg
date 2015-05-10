@@ -1,21 +1,13 @@
-package de.freitag.stefan.ledbord.demo;
+package de.freitag.stefan.ledborg.demo;
 
-import de.freitag.stefan.ledbord.LedBorg;
+import de.freitag.stefan.ledborg.BlinkRate;
+import de.freitag.stefan.ledborg.LedBorg;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 public final class LedBorgDemo {
-    /**
-     * Time between two color changes in seconds.
-     */
-    private static final long DELAY_IN_SECONDS = 3;
-    /**
-     * Colors to display.
-     */
-    private static Color[] colors = new Color[]{Color.blue, Color.CYAN, Color.MAGENTA, Color.orange, Color.YELLOW, Color.RED};
 
     /**
      * Entry point of the application.
@@ -25,13 +17,12 @@ public final class LedBorgDemo {
     public static void main(final String[] args) {
         final LedBorg ledborg = new LedBorg();
         ledborg.setup();
-        int i = 0;
+        ledborg.displayColor(Color.BLUE);
+        ledborg.setBlinkRate(BlinkRate.TWO_SECONDS);
+        ledborg.blink(true);
         while (true) {
-            final Color color = colors[i++ % colors.length];
-            getLogger().info("Setting color " + color);
-            ledborg.displayColor(color);
             try {
-                Thread.sleep(TimeUnit.SECONDS.toMillis(DELAY_IN_SECONDS));
+                Thread.sleep(100);
             } catch (InterruptedException exception) {
                 getLogger().error("Interrupted exception:", exception);
                 Thread.currentThread().interrupt();
