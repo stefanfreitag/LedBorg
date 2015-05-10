@@ -24,10 +24,16 @@ public enum BlinkRate {
      */
     private long blinkRate;
 
-
-    BlinkRate(long blinkRate) {
+    /**
+     * Create a new {@link BlinkRate}.
+     *
+     * @param blinkRate The blink rate in milliseconds.
+     */
+    BlinkRate(final long blinkRate) {
         this.blinkRate = blinkRate;
     }
 
-
+    public long getBlinkRate() {
+        return this.blinkRate;
+    }
 }
