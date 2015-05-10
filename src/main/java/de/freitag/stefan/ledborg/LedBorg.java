@@ -1,8 +1,10 @@
-package de.freitag.stefan.ledbord;
+package de.freitag.stefan.ledborg;
 
 
 import com.pi4j.io.gpio.*;
 import com.pi4j.wiringpi.SoftPwm;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.util.Objects;
@@ -33,7 +35,12 @@ public final class LedBorg {
     private boolean isBlinking;
 
     private Timer blinkTimer;
+    /**
+     * The default blink rate.
+     */
+    private BlinkRate DEFAULT_RATE = BlinkRate.ONE_SECOND;
 
+    private BlinkRate blinkRate = DEFAULT_RATE;
     /**
      * Initialize the LedBorg with the default pin layout given in {@link #LAYOUT}.
      */
@@ -52,6 +59,15 @@ public final class LedBorg {
         super();
         Objects.requireNonNull(layout, "Pin layout not allowed to be null.");
         this.layout = layout;
+    }
+
+    /**
+     * Return the {@link Logger} for this class.
+     *
+     * @return The {@link Logger} for this class.
+     */
+    private static Logger getLogger() {
+        return LogManager.getLogger(LedBorg.class.getCanonicalName());
     }
 
     /**
@@ -128,11 +144,25 @@ public final class LedBorg {
         return this.isBlinking;
     }
 
+    /**
+     * Set the blink rate.
+     *
+     * @param blinkRate
+     * @throws IllegalArgumentException if {@code blinkRate} is {@code null}.
+     */
+    public void setBlinkRate(BlinkRate blinkRate) {
+        if (blinkRate == null) {
+            throw new IllegalArgumentException("BlinkRate is null");
+        }
+        getLogger().info("Set blink rate to " + blinkRate.getBlinkRate() + " ms.");
+        this.blinkRate = blinkRate;
+    }
+
     public void blink(final boolean enable) {
         this.isBlinking = enable;
         if (enable) {
             blinkTimer = new Timer("Blink Timer");
-            blinkTimer.schedule(new BlinkTask(), 0, 200);
+            blinkTimer.schedule(new BlinkTask(), 0, this.blinkRate.getBlinkRate());
         } else {
             if (blinkTimer != null) {
                 blinkTimer.cancel();

@@ -1,11 +1,20 @@
-package de.freitag.stefan.ledbord;
+package de.freitag.stefan.ledborg;
 
 import com.pi4j.io.gpio.Pin;
 
 public final class PinLayout {
 
+    /**
+     * The {@link Pin} the red LED is connected to.
+     */
     private final Pin red;
+    /**
+     * The {@link Pin} the green LED is connected to.
+     */
     private final Pin green;
+    /**
+     * The {@link Pin} the blue LED is connected to.
+     */
     private final Pin blue;
 
     /**
@@ -44,14 +53,27 @@ public final class PinLayout {
         return new PinLayout(red, green, blue);
     }
 
+    /**
+     * The {@link Pin} the red LED is connected to.
+     *
+     * @return The {@link Pin} the red LED is connected to.
+     */
     public Pin getRed() {
         return this.red;
     }
 
+    /**
+     * The {@link Pin} the green LED is connected to.
+     * @return The {@link Pin} the green LED is connected to.
+     */
     public Pin getGreen() {
         return this.green;
     }
 
+    /**
+     * The {@link Pin} the blue LED is connected to.
+     * @return The {@link Pin} the blue LED is connected to.
+     */
     public Pin getBlue() {
         return this.blue;
     }

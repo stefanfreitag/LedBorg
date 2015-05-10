@@ -20,9 +20,10 @@ plugins {
 
 
 project.description = 'LedBorg Library'
+project.archivesBaseName = 'de.freitag.stefan.ledborg'
 project.version = '1.1'
 
-mainClassName = 'de.freitag.stefan.ledbord.demo.LedBorgDemo'
+mainClassName = 'de.freitag.stefan.ledborg.demo.LedBorgDemo'
 
 repositories {
     mavenCentral()
@@ -159,5 +160,20 @@ bintray {
             passphrase = project.hasProperty('gpg_passphrase') ? gpg_passphrase : ''
         }
         }
+    }
+}
+
+applicationDistribution.from("src/main/resources/log4j2.xml") {
+    into "bin"
+}
+
+startScripts {
+    applicationName = project.archivesBaseName
+    classpath += files('bin')
+    doLast {
+        def windowsScriptFile = file getWindowsScript()
+        def unixScriptFile = file getUnixScript()
+        windowsScriptFile.text = windowsScriptFile.text.replace('%APP_HOME%\\lib\\bin', '%APP_HOME%\\bin')
+        unixScriptFile.text = unixScriptFile.text.replace('$APP_HOME/lib/bin', '$APP_HOME/bin')
     }
 }
