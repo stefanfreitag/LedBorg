@@ -32,6 +32,9 @@ public final class LedBorg {
      */
     private Color color;
 
+    /**
+     * Stores the blinking status.
+     */
     private boolean isBlinking;
 
     private Timer blinkTimer;
@@ -40,6 +43,9 @@ public final class LedBorg {
      */
     private BlinkRate DEFAULT_RATE = BlinkRate.ONE_SECOND;
 
+    /**
+     * The currently set blink rate.
+     */
     private BlinkRate blinkRate = DEFAULT_RATE;
     /**
      * Initialize the LedBorg with the default pin layout given in {@link #LAYOUT}.
@@ -105,6 +111,12 @@ public final class LedBorg {
         SoftPwm.softPwmCreate(pinLayout.getBlue().getAddress(), 0, 50);
     }
 
+    /**
+     * Display the {@link Color} {@code color}.
+     *
+     * @param color The {@link Color} to display.
+     * @throws IllegalArgumentException if {@code color} is {@code null}.
+     */
     public void displayColor(final Color color) {
         if (color == null) {
             throw new IllegalArgumentException("Color is null");
@@ -133,6 +145,20 @@ public final class LedBorg {
      */
     public Color getDisplayedColor() {
         return this.color;
+    }
+
+    /**
+     * Brightens up the displayed {@link Color} by one level.
+     */
+    public void brighter() {
+        this.displayColor(this.color.brighter());
+    }
+
+    /**
+     * Darkens the displayed {@link Color} by one level.
+     */
+    public void darker() {
+        this.displayColor(this.color.darker());
     }
 
     /**

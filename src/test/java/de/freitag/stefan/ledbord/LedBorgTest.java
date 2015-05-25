@@ -9,6 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Test class for {@link LedBorg}.
+ * @author Stefan Freitag
  */
 public final class LedBorgTest {
 
