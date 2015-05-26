@@ -31,6 +31,17 @@ you will see an output similar to
         at com.pi4j.io.gpio.impl.GpioControllerImpl.provisionPin(GpioControllerImpl.java:499)
         at com.pi4j.io.gpio.impl.GpioControllerImpl.provisionDigitalOutputPin(GpioControllerImpl.java:651)
         at com.pi4j.io.gpio.impl.GpioControllerImpl.provisionDigitalOutputPin(GpioControllerImpl.java:661)
-        at de.freitag.stefan.ledbord.LedBorg.setupGpio(LedBorg.java:63)
-        at de.freitag.stefan.ledbord.LedBorg.setup(LedBorg.java:47)
-        at de.freitag.stefan.ledbord.demo.LedBorgDemo.main(LedBorgDemo.java:27)
+        at de.freitag.stefan.ledborg.LedBorg.setupGpio(LedBorg.java:63)
+        at de.freitag.stefan.ledborg.LedBorg.setup(LedBorg.java:47)
+        at de.freitag.stefan.ledborg.demo.LedBorgDemo.main(LedBorgDemo.java:27)
+        
+# Changes
+*   Version 1.3
+  
+    Added support for darken/ brighten the LedBorg.
+    
+*   Version 1.2
+      
+    Added support for blinking LedBorg.
+    
+    Added logging support.

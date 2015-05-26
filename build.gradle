@@ -21,7 +21,7 @@ plugins {
 
 project.description = 'LedBorg Library'
 project.archivesBaseName = 'de.freitag.stefan.ledborg'
-project.version = '1.2'
+project.version = '1.3'
 
 mainClassName = 'de.freitag.stefan.ledborg.demo.LedBorgDemo'
 
