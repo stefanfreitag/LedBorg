@@ -2,6 +2,7 @@ package de.freitag.stefan.ledborg.demo;
 
 import de.freitag.stefan.ledborg.BlinkRate;
 import de.freitag.stefan.ledborg.LedBorg;
+import de.freitag.stefan.ledborg.LedBorgImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +16,7 @@ public final class LedBorgDemo {
      * @param args Arguments to the application.
      */
     public static void main(final String[] args) {
-        final LedBorg ledborg = new LedBorg();
+        final LedBorg ledborg = new LedBorgImpl();
         ledborg.setup();
         ledborg.displayColor(Color.BLUE);
         ledborg.setBlinkRate(BlinkRate.TWO_SECONDS);
