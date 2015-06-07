@@ -36,6 +36,11 @@ you will see an output similar to
         at de.freitag.stefan.ledborg.demo.LedBorgDemo.main(LedBorgDemo.java:27)
         
 # Changes
+*   Version 1.4
+    
+    Added LedBorg interface.
+    Added LedBorg dummy implementation.
+
 *   Version 1.3
   
     Added support for darken/ brighten the LedBorg.
