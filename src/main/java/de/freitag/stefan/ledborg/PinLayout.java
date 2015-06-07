@@ -2,6 +2,11 @@ package de.freitag.stefan.ledborg;
 
 import com.pi4j.io.gpio.Pin;
 
+/**
+ * Pin layout.
+ *
+ * @author Stefan Freitag (stefan@stefreitag.de)
+ */
 public final class PinLayout {
 
     /**
