@@ -3,7 +3,7 @@ package de.freitag.stefan.ledborg;
 /**
  * Allowed blink rates in milliseconds.
  *
- * @author Stefan Freitag
+ * @author Stefan Freitag (stefan@stefreitag.de)
  */
 public enum BlinkRate {
     /**
