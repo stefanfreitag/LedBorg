@@ -21,7 +21,7 @@ plugins {
 
 project.description = 'LedBorg Library'
 project.archivesBaseName = 'de.freitag.stefan.ledborg'
-project.version = '1.4-SNAPSHOT'
+project.version = '1.4-RELEASE'
 
 mainClassName = 'de.freitag.stefan.ledborg.demo.LedBorgDemo'
 
@@ -40,7 +40,6 @@ compileJava {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 }
-
 
 jar {
     exclude('log4j2.xml')
@@ -68,7 +67,7 @@ artifacts {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.4'
 }
 
 jacocoTestReport {
