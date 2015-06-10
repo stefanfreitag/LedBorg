@@ -84,6 +84,11 @@ public final class LedBorgDummy implements LedBorg {
     }
 
     @Override
+    public void on() {
+        //Empty method
+    }
+
+    @Override
     public Color getDisplayedColor() {
         return this.color;
     }

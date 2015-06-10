@@ -27,6 +27,11 @@ public interface LedBorg {
     void off();
 
     /**
+     * Turn on the LedBorg by displaying the last set {@link Color}.
+     */
+    void on();
+
+    /**
      * Return the displayed {@link Color}.
      *
      * @return The displayed {@link Color}.

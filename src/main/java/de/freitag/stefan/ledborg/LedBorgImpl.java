@@ -123,9 +123,19 @@ public final class LedBorgImpl implements LedBorg {
 
     @Override
     public void off() {
+        getLogger().info("Turning LedBorg off.");
         SoftPwm.softPwmWrite(layout.getRed().getAddress(), 0);
         SoftPwm.softPwmWrite(layout.getGreen().getAddress(), 0);
         SoftPwm.softPwmWrite(layout.getBlue().getAddress(), 0);
+    }
+
+    /**
+     * Turn on the LedBorg by displaying the last set {@link Color}.
+     */
+    @Override
+    public void on() {
+        getLogger().info("Turning LedBorg on.");
+        this.displayColor(this.getDisplayedColor());
     }
 
     @Override
