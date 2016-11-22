@@ -1,0 +1,105 @@
+apply plugin: 'application'
+
+project.description = 'LedBorg REST-Interface'
+project.archivesBaseName = 'de.freitag.stefan.ledborg.rest'
+project.version = '1.0.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = "de.freitag.stefan.ledborg.rest.LedBorgRestApplication"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':borg-core')
+    compile("io.dropwizard:dropwizard-core:1.0.2")
+    testCompile('org.glassfish.jersey.core:jersey-client:2.17')
+    testCompile("junit:junit")
+}
+applicationDistribution.from("src/main/resources/config.yml") {
+    into "bin"
+}
+
+applicationDistribution.from("src/main/resources/log4j2.xml") {
+    into "bin"
+}
+
+run {
+    args 'server', 'src/main/resources/config.yml'
+}
+
+def pomConfig = {
+    inceptionYear '2015'
+    licenses {
+        license {
+            name "The MIT License (MIT)"
+            url "https://github.com/stefanfreitag/LedBorg.REST/blob/master/LICENSE"
+            distribution "repo"
+        }
+    }
+
+    scm {
+        url 'scm:git:https://github.com/stefanfreitag/LedBorg.REST'
+        connection 'scm:git:https://github.com/stefanfreitag/LedBorg.REST'
+        developerConnection 'scm:git:https://github.com/stefanfreitag/LedBorg.REST'
+    }
+    developers {
+        developer {
+            id "sfreitag"
+            name "Stefan Freitag"
+            email "stefan@stefreitag.de"
+            timezone "Europe/Berlin"
+            roles {
+                role "developer"
+            }
+        }
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+findbugs {
+    ignoreFailures = true
+    effort = "max"
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+pmd {
+    ignoreFailures = true
+    ruleSets = [
+            "java-basic",
+            "java-braces",
+            "java-design",
+            "java-finalizers",
+            "java-junit",
+            "java-naming",
+            "java-optimizations",
+            "java-strings",
+            "java-unusedcode"
+    ]
+}
+
+startScripts {
+    applicationName = project.archivesBaseName
+    classpath += files('bin')
+    doLast {
+        def windowsScriptFile = file getWindowsScript()
+        def unixScriptFile = file getUnixScript()
+        windowsScriptFile.text = windowsScriptFile.text.replace('%APP_HOME%\\lib\\bin', '%APP_HOME%\\bin')
+        unixScriptFile.text = unixScriptFile.text.replace('$APP_HOME/lib/bin', '$APP_HOME/bin')
+    }
+}

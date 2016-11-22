@@ -1,0 +1,3 @@
+include 'borg-core'
+include 'borg-demo'
+include 'borg-rest'

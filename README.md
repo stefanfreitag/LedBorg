@@ -1,52 +1,23 @@
-# LedBorg
+# LedBorg Project
 
-[![Project Status](http://stillmaintained.com/stefanfreitag/LedBorg.png)](https://stillmaintained.com/stefanfreitag/LedBorg)
-[![Build Status](https://travis-ci.org/stefanfreitag/LedBorg.svg?branch=master)](https://travis-ci.org/stefanfreitag/LedBorg)
-[![Coverage Status](https://coveralls.io/repos/stefanfreitag/Ledborg/badge.svg)](https://coveralls.io/r/stefanfreitag/Ledborg)
-[ ![Download](https://api.bintray.com/packages/stefanfreitag/maven/LedBorg/images/download.svg) ](https://bintray.com/stefanfreitag/maven/LedBorg/_latestVersion)
+The [LedBorg](https://www.piborg.org/ledborg) is an ultra bright RGB LED add-on board for my Raspberry Pi. For this board I decided to write a small Java
+library. For controlling the LedBorg from a remote machine I added a [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) interface.
 
-Java Library for accessing the LedBorg hardware
+Hence the project is split into three parts:
 
-# Demo Application
-The library contains a demo application. This application continuously switches
-between six different colors until it terminates. Each colour changes is logged to
-the console like this
+  1. borg-core: Contains the library itself
+  2. borg-demo: Contains demo application
+  3. borg-rest: Offers access to the library via REST
 
-    INFO  [main] LedBorgDemo  - Setting color java.awt.Color[r=0,g=0,b=255]
-    INFO  [main] LedBorgDemo  - Setting color java.awt.Color[r=0,g=255,b=255]
-    INFO  [main] LedBorgDemo  - Setting color java.awt.Color[r=255,g=0,b=255]
-    INFO  [main] LedBorgDemo  - Setting color java.awt.Color[r=255,g=200,b=0]
-    INFO  [main] LedBorgDemo  - Setting color java.awt.Color[r=255,g=255,b=0]
-    INFO  [main] LedBorgDemo  - Setting color java.awt.Color[r=255,g=0,b=0]
 
-For proper execution super user privileges may be required. If those ones are missing
-you will see an output similar to
-
-    wiringPiSetup: Unable to open /dev/mem: Permission denied
-    Exception in thread "main" java.lang.RuntimeException: Unable to open GPIO direction interface for pin [0]: Permission denied
-        at com.pi4j.wiringpi.GpioUtil.export(Native Method)
-        at com.pi4j.io.gpio.RaspiGpioProvider.export(RaspiGpioProvider.java:67)
-        at com.pi4j.io.gpio.impl.GpioPinImpl.export(GpioPinImpl.java:165)
-        at com.pi4j.io.gpio.impl.GpioControllerImpl.provisionPin(GpioControllerImpl.java:520)
-        at com.pi4j.io.gpio.impl.GpioControllerImpl.provisionPin(GpioControllerImpl.java:499)
-        at com.pi4j.io.gpio.impl.GpioControllerImpl.provisionDigitalOutputPin(GpioControllerImpl.java:651)
-        at com.pi4j.io.gpio.impl.GpioControllerImpl.provisionDigitalOutputPin(GpioControllerImpl.java:661)
-        at de.freitag.stefan.ledborg.LedBorg.setupGpio(LedBorg.java:63)
-        at de.freitag.stefan.ledborg.LedBorg.setup(LedBorg.java:47)
-        at de.freitag.stefan.ledborg.demo.LedBorgDemo.main(LedBorgDemo.java:27)
-        
-# Changes
-*   Version 1.4
-    
-    Added LedBorg interface.
-    Added LedBorg dummy implementation.
-
-*   Version 1.3
-  
-    Added support for darken/ brighten the LedBorg.
-    
-*   Version 1.2
-      
-    Added support for blinking LedBorg.
-    
-    Added logging support.
+## Changes
+* Version 1.5
+  * Restructuring of project 
+* Version 1.4
+  * Added LedBorg interface.
+  * Added LedBorg dummy implementation.
+* Version 1.3
+  * Added support for darken/ brighten the LedBorg.
+* Version 1.2
+  * Added support for blinking LedBorg.
+  * Added logging support.
