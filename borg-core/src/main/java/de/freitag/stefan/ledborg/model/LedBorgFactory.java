@@ -5,7 +5,11 @@ import java.util.Objects;
 /**
  * Factory for retrieving {@link LedBorg} implementations.
  */
-public final class LedBorgFactory {
+public class LedBorgFactory {
+
+    private LedBorgFactory() {
+        //empty method
+    }
 
     /**
      * The available types of {@link LedBorg} implementations.
@@ -23,6 +27,7 @@ public final class LedBorgFactory {
 
     /**
      * Retrieve a {@link LedBorg} instance bases on the given{@link TYPE}.
+     *
      * @param type The type of instance to retrieve.
      * @return A {@link LedBorg} instance.
      */

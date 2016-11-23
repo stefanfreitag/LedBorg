@@ -20,6 +20,9 @@ public final class LedBorgDemo {
      */
     private final static Logger LOG = LogManager.getLogger(LedBorgDemo.class.getCanonicalName());
 
+    private LedBorgDemo(){
+        //empty method
+    }
     /**
      * Entry point of the application.
      *

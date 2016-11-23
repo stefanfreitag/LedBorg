@@ -11,13 +11,12 @@ buildscript {
 plugins {
     id 'com.github.kt3k.coveralls' version '2.7.1'
     id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.2'
+    id 'com.jfrog.bintray' version '1.7'
 }
 
 
 project.description = 'LedBorg Library'
-project.archivesBaseName = 'de.freitag.stefan.ledborg'
-project.version = '1.5.0-SNAPSHOT'
+project.version = '1.5.0'
 
 repositories {
     mavenCentral()
@@ -132,11 +131,11 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
 
-            groupId 'de.freitag.stefan'
+            groupId 'de.freitag.stefan.ledborg'
             artifactId 'borg-core'
             pom.withXml {
                 def root = asNode()
-                root.appendNode('description', 'Java Library for accessing the LedBorg hardware')
+                root.appendNode('description', 'Java library for accessing the LedBorg hardware')
                 root.children().last() + pomConfig
             }
         }
@@ -160,8 +159,8 @@ bintray {
     publish = true
     pkg {
         repo = 'maven'
-        name = 'LedBorg'
-        desc = 'Java Library for accessing the LedBorg hardware.'
+        name = 'borg-core'
+        desc = 'Java library for accessing the LedBorg hardware.'
         websiteUrl = 'https://github.com/stefanfreitag/LedBorg/'
         issueTrackerUrl = 'https://github.com/stefanfreitag/LedBorg/issues'
         vcsUrl = 'git://github.com/stefanfreitag/LedBorg.git'

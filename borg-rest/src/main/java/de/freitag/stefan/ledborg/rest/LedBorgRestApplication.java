@@ -16,7 +16,6 @@ public final class LedBorgRestApplication extends Application<LedBorgRestConfigu
      * Application entry point.
      *
      * @param args Command line arguments
-     * @throws Exception
      */
     public static void main(final String[] args) {
         try {

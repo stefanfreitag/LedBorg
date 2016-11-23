@@ -4,20 +4,19 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.7.1'
     }
 }
 
 plugins {
     id 'application'
-    id 'com.github.kt3k.coveralls' version '2.0.1'
+    id 'com.github.kt3k.coveralls' version '2.7.1'
     id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.2'
+    id 'com.jfrog.bintray' version '1.7'
 }
 
 project.description = 'LedBorg Demo'
-project.archivesBaseName = 'de.freitag.stefan.ledborg.demo'
-project.version = '1.0.0-SNAPSHOT'
+project.version = '1.0.0'
 
 mainClassName = 'de.freitag.stefan.ledborg.demo.LedBorgDemo'
 
@@ -131,11 +130,11 @@ publishing {
             artifact javadocJar
             artifact distZip
 
-            groupId 'de.freitag.stefan'
+            groupId 'de.freitag.stefan.ledborg'
             artifactId 'borg-demo'
             pom.withXml {
                 def root = asNode()
-                root.appendNode('description', 'Java Library for accessing the LedBorg hardware')
+                root.appendNode('description', 'LedBorg Demo Application')
                 root.children().last() + pomConfig
             }
         }
@@ -159,8 +158,8 @@ bintray {
     publish = true
     pkg {
         repo = 'maven'
-        name = 'LedBorg'
-        desc = 'Java Library for accessing the LedBorg hardware.'
+        name = 'borg-demo'
+        desc = 'LedBorg Demo Application'
         websiteUrl = 'https://github.com/stefanfreitag/LedBorg/'
         issueTrackerUrl = 'https://github.com/stefanfreitag/LedBorg/issues'
         vcsUrl = 'git://github.com/stefanfreitag/LedBorg.git'

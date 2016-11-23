@@ -4,4 +4,4 @@
 [![Coverage Status](https://coveralls.io/repos/stefanfreitag/Ledborg/badge.svg)](https://coveralls.io/r/stefanfreitag/Ledborg)
 [ ![Download](https://api.bintray.com/packages/stefanfreitag/maven/LedBorg/images/download.svg) ](https://bintray.com/stefanfreitag/maven/LedBorg/_latestVersion)
 
-Java Library for accessing the LedBorg hardware
+Java library for accessing the LedBorg hardware
