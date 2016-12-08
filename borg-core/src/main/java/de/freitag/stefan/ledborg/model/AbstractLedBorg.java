@@ -4,7 +4,6 @@ package de.freitag.stefan.ledborg.model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,11 +42,14 @@ abstract class AbstractLedBorg implements LedBorg {
     private BlinkRate blinkRate = DEFAULT_RATE;
 
     /**
-     *
+     * Create a new {@link AbstractLedBorg}.
+     * <ul>
+     * <li>Blinking is disabled.</li>
+     * <li>Default color is black</li></ul>
      */
     AbstractLedBorg() {
         this.blinking = false;
-        this.color = Color.BLACK;
+        this.color = new Color.Builder().create();
     }
 
 

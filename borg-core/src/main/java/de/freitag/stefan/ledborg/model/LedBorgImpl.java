@@ -6,7 +6,6 @@ import com.pi4j.wiringpi.SoftPwm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -87,7 +86,7 @@ final class LedBorgImpl extends AbstractLedBorg {
         if (color == null) {
             throw new IllegalArgumentException("Color is null");
         }
-        final float[] colors = color.getRGBColorComponents(null);
+        final float[] colors = new float[]{color.getRed(), color.getGreen(), color.getBlue()};
         SoftPwm.softPwmWrite(layout.getRed().getAddress(), (int) (colors[0] * 50f));
         SoftPwm.softPwmWrite(layout.getGreen().getAddress(), (int) (colors[1] * 50f));
         SoftPwm.softPwmWrite(layout.getBlue().getAddress(), (int) (colors[2] * 50f));

@@ -1,6 +1,5 @@
 package de.freitag.stefan.ledborg.model;
 
-import java.awt.*;
 
 /**
  * LedBord interface.
