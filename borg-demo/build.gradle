@@ -16,7 +16,7 @@ plugins {
 }
 
 project.description = 'LedBorg Demo'
-project.version = '1.0.0'
+project.version = '1.0.1'
 
 mainClassName = 'de.freitag.stefan.ledborg.demo.LedBorgDemo'
 
@@ -35,7 +35,6 @@ compileJava {
 }
 
 jar {
-    exclude('log4j2.xml')
     manifest {
         attributes  'Implementation-Title': 'LedBorg Demo',
                 'Implementation-Version': version,
@@ -174,20 +173,5 @@ bintray {
             passphrase = project.hasProperty('gpg_passphrase') ? gpg_passphrase : ''
         }
         }
-    }
-}
-
-applicationDistribution.from("src/main/resources/log4j2.xml") {
-    into "bin"
-}
-
-startScripts {
-    applicationName = project.archivesBaseName
-    classpath += files('bin')
-    doLast {
-        def windowsScriptFile = file getWindowsScript()
-        def unixScriptFile = file getUnixScript()
-        windowsScriptFile.text = windowsScriptFile.text.replace('%APP_HOME%\\lib\\bin', '%APP_HOME%\\bin')
-        unixScriptFile.text = unixScriptFile.text.replace('$APP_HOME/lib/bin', '$APP_HOME/bin')
     }
 }

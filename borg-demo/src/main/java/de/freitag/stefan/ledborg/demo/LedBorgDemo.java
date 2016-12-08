@@ -1,12 +1,11 @@
 package de.freitag.stefan.ledborg.demo;
 
 import de.freitag.stefan.ledborg.model.BlinkRate;
+import de.freitag.stefan.ledborg.model.Color;
 import de.freitag.stefan.ledborg.model.LedBorg;
 import de.freitag.stefan.ledborg.model.LedBorgFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.awt.*;
 
 /**
  * Demo Application.
@@ -30,10 +29,12 @@ public final class LedBorgDemo {
      */
     public static void main(final String[] args) {
         final LedBorg ledborg = LedBorgFactory.get(LedBorgFactory.TYPE.REAL);
+        Color.Builder builder = new Color.Builder();
         ledborg.setup();
         ledborg.setBlinkRate(BlinkRate.TWO_SECONDS);
         ledborg.blink(true);
-        ledborg.displayColor(Color.RED);
+
+        ledborg.displayColor(builder.withRed(1.0f).create());
         Runtime.getRuntime().addShutdownHook(new Thread(ledborg::off));
 
         while (true) {
