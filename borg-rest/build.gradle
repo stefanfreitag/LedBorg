@@ -27,10 +27,6 @@ applicationDistribution.from("src/main/resources/config.yml") {
     into "bin"
 }
 
-applicationDistribution.from("src/main/resources/log4j2.xml") {
-    into "bin"
-}
-
 run {
     args 'server', 'src/main/resources/config.yml'
 }
@@ -82,17 +78,6 @@ pmd {
             "java-strings",
             "java-unusedcode"
     ]
-}
-
-startScripts {
-    applicationName = project.archivesBaseName
-    classpath += files('bin')
-    doLast {
-        def windowsScriptFile = file getWindowsScript()
-        def unixScriptFile = file getUnixScript()
-        windowsScriptFile.text = windowsScriptFile.text.replace('%APP_HOME%\\lib\\bin', '%APP_HOME%\\bin')
-        unixScriptFile.text = unixScriptFile.text.replace('$APP_HOME/lib/bin', '$APP_HOME/bin')
-    }
 }
 
 def pomConfig = {

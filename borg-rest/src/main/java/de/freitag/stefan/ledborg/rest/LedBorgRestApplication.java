@@ -51,5 +51,7 @@ public final class LedBorgRestApplication extends Application<LedBorgRestConfigu
         }
         final LedBorgController resource = new LedBorgController();
         environment.jersey().register(resource);
+        environment.healthChecks().register("borg-rest", resource);
+
     }
 }
