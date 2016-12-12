@@ -8,19 +8,19 @@ import static org.junit.Assert.assertEquals;
  * Test class for {@link Color}.
  */
 public final class ColorTest {
-    private final Color.Builder builder = new Color.Builder();
+
 
     @Test
-    public void createReturnsBlack() {
-        final Color color = builder.create();
+    public void constructorReturnsBlack() {
+        final Color color = new Color();
         assertEquals(0.0f, color.getRed(), 0.0000f);
         assertEquals(0.0f, color.getGreen(), 0.0000f);
         assertEquals(0.0f, color.getBlue(), 0.0000f);
     }
 
     @Test
-    public void createReturnsExpectedColor() {
-        final Color color = builder.withRed(0.9f).withBlue(1.0f).withGreen(0.5f).create();
+    public void constructorWithValuesReturnsExpectedColor() {
+        final Color color = new Color(0.9f, 0.5f, 1.0f);
         assertEquals(0.9f, color.getRed(), 0.0000f);
         assertEquals(0.5f, color.getGreen(), 0.0000f);
         assertEquals(1.0f, color.getBlue(), 0.0000f);
@@ -28,32 +28,31 @@ public final class ColorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void withBlueWithTooLowValueThrowsIllegalArgumentException() {
-        builder.withBlue(-1.0f).create();
+        new Color(0.0f,0.0f,-1.0f);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void withBlueWithTooHighValueThrowsIllegalArgumentException() {
-        builder.withBlue(2.0f).create();
-    }
+    public void withBlueWithTooHighValueThrowsIllegalArgumentException(){new Color(0.0f,0.0f,2.0f);}
+
 
     @Test(expected = IllegalArgumentException.class)
     public void withRedWithTooLowValueThrowsIllegalArgumentException() {
-        builder.withRed(-1.0f).create();
+        new Color(-1.0f,0.0f,0.0f);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void withRedWithTooHighValueThrowsIllegalArgumentException() {
-        builder.withRed(2.0f).create();
+        new Color(2.0f,0.0f,0.0f);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void withGreenWithTooLowValueThrowsIllegalArgumentException() {
-        builder.withGreen(-1.0f).create();
+        new Color(0.0f,-1.0f,0.0f);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void withGreenWithTooHighValueThrowsIllegalArgumentException() {
-        builder.withGreen(2.0f).create();
+        new Color(0.0f,2.0f,0.0f);
     }
 
 }

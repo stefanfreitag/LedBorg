@@ -49,7 +49,7 @@ abstract class AbstractLedBorg implements LedBorg {
      */
     AbstractLedBorg() {
         this.blinking = false;
-        this.color = new Color.Builder().create();
+        this.color = new Color();
     }
 
 

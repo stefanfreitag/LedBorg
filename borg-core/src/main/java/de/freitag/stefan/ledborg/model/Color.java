@@ -7,11 +7,26 @@ import java.util.Objects;
  */
 public class Color {
 
-    private final float red;
-    private final float green;
-    private final float blue;
+    private float red;
+    private float green;
+    private float blue;
 
-    private Color(final float red, final float green, final float blue) {
+    public Color(){
+        this(0.0f,0.0f,0.0f);
+    }
+
+    public Color(final float red, final float green, final float blue) {
+
+        if (!inRange(red)) {
+            throw new IllegalArgumentException("Invalid value " + red + " for red. Allowed range is [0;1].");
+        }
+
+        if (!inRange(green)) {
+            throw new IllegalArgumentException("Invalid value " + green + " for green. Allowed range is [0;1].");
+        }
+        if (!inRange(blue)) {
+            throw new IllegalArgumentException("Invalid value " + blue + " for blue. Allowed range is [0;1].");
+        }
         this.red = red;
         this.green = green;
         this.blue = blue;
@@ -41,6 +56,10 @@ public class Color {
         return blue;
     }
 
+    private boolean inRange(final float value){
+        return 0.0f<=value && value<=1.0f;
+    }
+
     @Override
     public String toString() {
         return "Color{" +
@@ -64,45 +83,4 @@ public class Color {
     public int hashCode() {
         return Objects.hash(getRed(), getGreen(), getBlue());
     }
-
-    public static class Builder {
-
-        private float red;
-
-        private float green;
-        private float blue;
-
-        public Builder withRed(final float red) {
-            if (!inRange(red)) {
-                throw new IllegalArgumentException("Invalid value " + red + " for red. Allowed range is [0;1].");
-            }
-            this.red = red;
-            return this;
-        }
-
-        public Builder withBlue(final float blue) {
-            if (!inRange(blue)) {
-                throw new IllegalArgumentException("Invalid value " + blue + " for blue. Allowed range is [0;1].");
-            }
-            this.blue = blue;
-            return this;
-        }
-
-        public Builder withGreen(final float green) {
-            if (!inRange(green)) {
-                throw new IllegalArgumentException("Invalid value " + green + " for green. Allowed range is [0;1].");
-            }
-            this.green = green;
-            return this;
-        }
-
-        public Color create() {
-            return new Color(red, green, blue);
-        }
-        private boolean inRange(final float value){
-               return 0.0f<=value && value<=1.0f;
-        }
-    }
-
-
 }

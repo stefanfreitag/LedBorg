@@ -13,6 +13,6 @@ public final class LedBorgImplTest {
     @Test
     public void getDisplayedColorInitiallyReturnsExpectedValue() {
         final LedBorgImpl ledBorg = new LedBorgImpl();
-        assertEquals(new Color.Builder().create(), ledBorg.getDisplayedColor());
+        assertEquals(new Color(), ledBorg.getDisplayedColor());
     }
 }
