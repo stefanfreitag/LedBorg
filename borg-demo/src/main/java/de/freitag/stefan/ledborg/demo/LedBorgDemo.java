@@ -29,12 +29,12 @@ public final class LedBorgDemo {
      */
     public static void main(final String[] args) {
         final LedBorg ledborg = LedBorgFactory.get(LedBorgFactory.TYPE.REAL);
-        Color.Builder builder = new Color.Builder();
+
         ledborg.setup();
         ledborg.setBlinkRate(BlinkRate.TWO_SECONDS);
         ledborg.blink(true);
 
-        ledborg.displayColor(builder.withRed(1.0f).create());
+        ledborg.displayColor(new Color(1.0f,0.0f, 0.0f));
         Runtime.getRuntime().addShutdownHook(new Thread(ledborg::off));
 
         while (true) {

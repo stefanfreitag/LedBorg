@@ -55,8 +55,8 @@ public final class LedBorgController extends HealthCheck{
                          final @QueryParam("green") @DefaultValue("0.0f") String green,
                          final @QueryParam("blue") @DefaultValue("0.0f") String blue
     ) {
-        Color.Builder builder = new Color.Builder();
-       this.borg.displayColor(builder.withGreen(Float.valueOf(green)).withRed(Float.valueOf(red)).withBlue(Float.valueOf(blue)).create());
+
+       this.borg.displayColor(new Color(Float.valueOf(red), Float.valueOf(green), Float.valueOf(blue)));
     }
 
 
