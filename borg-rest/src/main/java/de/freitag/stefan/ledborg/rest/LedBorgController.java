@@ -24,6 +24,7 @@ public final class LedBorgController extends HealthCheck{
      * Creates a new {@link LedBorgController}.
      */
     public LedBorgController() {
+        //this.borg = LedBorgFactory.get(LedBorgFactory.TYPE.DUMMY);
         this.borg = LedBorgFactory.get(LedBorgFactory.TYPE.REAL);
         this.borg.setup();
     }
@@ -42,14 +43,14 @@ public final class LedBorgController extends HealthCheck{
     }
 
     @GET
-    @Path("/getColor")
+    @Path("/color")
     @Produces({MediaType.APPLICATION_JSON})
     public Color getColor() {
         return this.borg.getDisplayedColor();
     }
 
     @PUT
-    @Path("/setColor")
+    @Path("/color")
     @Consumes({MediaType.APPLICATION_JSON})
     public void setColor(final @QueryParam("red") @DefaultValue("0.0f") String red,
                          final @QueryParam("green") @DefaultValue("0.0f") String green,
@@ -62,7 +63,6 @@ public final class LedBorgController extends HealthCheck{
 
     @PUT
     @Path("/power")
-    @Consumes({MediaType.APPLICATION_JSON})
     public void power(final @QueryParam("value") @DefaultValue("on") String value) {
         if (value == null) {
             throw new IllegalArgumentException("Value is null");

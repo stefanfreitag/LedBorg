@@ -1,25 +1,19 @@
 package de.freitag.stefan.ledborg.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class for {@link LedBorgFactory}.
  *
  * @author Stefan Freitag (stefan@stefreitag.de)
  */
-public final class LedBorgFactoryTest {
-
-    @Test(expected = NullPointerException.class)
-    public void createWithNullThrowsNullPointerException() {
-        LedBorgFactory.get(null);
-    }
+final class LedBorgFactoryTest {
 
     @Test
-    public void getReturnsExpectedInstanceForDummy() {
-        assertThat(LedBorgFactory.get(LedBorgFactory.TYPE.DUMMY), instanceOf(LedBorgDummy.class));
+    void createWithNullThrowsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> LedBorgFactory.get(null));
     }
 
 }
