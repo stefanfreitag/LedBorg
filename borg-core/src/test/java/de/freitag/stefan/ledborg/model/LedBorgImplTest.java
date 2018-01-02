@@ -1,17 +1,17 @@
 package de.freitag.stefan.ledborg.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for {@link LedBorgImpl}.
  * @author Stefan Freitag
  */
-public final class LedBorgImplTest {
+final class LedBorgImplTest {
 
     @Test
-    public void getDisplayedColorInitiallyReturnsExpectedValue() {
+    void getDisplayedColorInitiallyReturnsExpectedValue() {
         final LedBorgImpl ledBorg = new LedBorgImpl();
         assertEquals(new Color(), ledBorg.getDisplayedColor());
     }
