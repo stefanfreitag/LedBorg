@@ -30,6 +30,8 @@ public interface LedBorg {
      */
     void on();
 
+    boolean isOn();
+
     /**
      * Return the displayed {@link Color}.
      *

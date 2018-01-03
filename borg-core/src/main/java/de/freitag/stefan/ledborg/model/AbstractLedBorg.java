@@ -25,6 +25,8 @@ abstract class AbstractLedBorg implements LedBorg {
      */
     private Color color;
 
+    private boolean on;
+
     /**
      * Stores the blinking status.
      */
@@ -82,13 +84,19 @@ abstract class AbstractLedBorg implements LedBorg {
     @Override
     public void on() {
         LOG.info("Turning LedBorg on.");
+        this.on = true;
     }
 
     @Override
     public void off() {
         LOG.info("Turning LedBorg off.");
+        this.on = false;
     }
 
+    @Override
+    public boolean isOn() {
+        return on;
+    }
 
     @Override
     public final boolean isBlinking() {

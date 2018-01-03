@@ -29,5 +29,4 @@ final class LedBorgDummy extends AbstractLedBorg {
         LOG.info("LedBorg setup");
         this.off();
     }
-
 }
