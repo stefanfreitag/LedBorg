@@ -15,8 +15,8 @@ plugins {
 }
 
 
-project.description = 'LedBorg Library'
-project.version = '1.5.2-SNAPSHOT'
+project.description = 'LedBorg Core Library'
+project.version = '1.6.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
