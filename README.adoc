@@ -12,7 +12,7 @@ Hence the project is split into three parts:
 
 ## Changes
 * Version 1.5
-  * Restructuring of project 
+  * Restructuring of project
 * Version 1.4
   * Added LedBorg interface.
   * Added LedBorg dummy implementation.
