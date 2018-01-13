@@ -4,6 +4,7 @@ import com.codahale.metrics.health.HealthCheck;
 import de.freitag.stefan.ledborg.model.Color;
 import de.freitag.stefan.ledborg.model.LedBorg;
 import de.freitag.stefan.ledborg.model.LedBorgFactory;
+import io.dropwizard.jersey.PATCH;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -24,7 +25,6 @@ public final class LedBorgController extends HealthCheck{
      * Creates a new {@link LedBorgController}.
      */
     public LedBorgController() {
-        //this.borg = LedBorgFactory.get(LedBorgFactory.TYPE.DUMMY);
         this.borg = LedBorgFactory.get(LedBorgFactory.TYPE.REAL);
         this.borg.setup();
     }
@@ -56,8 +56,21 @@ public final class LedBorgController extends HealthCheck{
                          final @QueryParam("green") @DefaultValue("0.0f") String green,
                          final @QueryParam("blue") @DefaultValue("0.0f") String blue
     ) {
-
        this.borg.displayColor(new Color(Float.valueOf(red), Float.valueOf(green), Float.valueOf(blue)));
+    }
+
+    @GET
+    @Path("/color/brighten")
+    @Produces({MediaType.APPLICATION_JSON})
+    public void brighten() {
+        this.borg.brighter();
+    }
+
+    @GET
+    @Path("/color/darken")
+    @Produces({MediaType.APPLICATION_JSON})
+    public void darken() {
+        this.borg.darker();
     }
 
 
@@ -76,6 +89,5 @@ public final class LedBorgController extends HealthCheck{
         } else {
             LOG.info("Unknown value " + value);
         }
-
     }
 }

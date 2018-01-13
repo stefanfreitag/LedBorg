@@ -6,7 +6,7 @@ plugins {
 }
 
 project.description = 'LedBorg REST-Interface'
-project.version = '1.0.1'
+project.version = '1.0.2-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

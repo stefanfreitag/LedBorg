@@ -55,8 +55,6 @@ public final class LedBorgRestApplication extends Application<LedBorgRestConfigu
             throw new IllegalArgumentException("Environment is null.");
         }
         final LedBorgController resource = new LedBorgController();
-
-
             final FilterRegistration.Dynamic cors =
                     environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 
@@ -68,8 +66,6 @@ public final class LedBorgRestApplication extends Application<LedBorgRestConfigu
 
             // Add URL mapping
             cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-
-
 
         environment.jersey().register(resource);
         environment.healthChecks().register("borg-rest", resource);
