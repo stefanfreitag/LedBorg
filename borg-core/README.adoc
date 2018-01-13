@@ -15,13 +15,15 @@ image::https://api.bintray.com/packages/stefanfreitag/maven/borg-core/images/dow
 permission for accessing this interface.
 
 === Supported actions
-* Turning the LedBorg on/ off
-* Reading and updating the displayed color
-* Enable and disabling blinking
-* Reading and updating the blink rate
+* Turning the LedBorg on/ off.
+* Reading and updating the displayed color.
+* Brighten and darken the displayed color.
+* Enable and disabling blinking.
+* Reading and updating the blink rate.
 
+== Example usage
+* Set/ update the displayed color
 
-
-
-
-
+      final LedBorg ledborg = LedBorgFactory.get(LedBorgFactory.TYPE.REAL);
+      ledborg.setup();
+      ledborg.displayColor(new Color(1.0f,0.0f, 0.0f));

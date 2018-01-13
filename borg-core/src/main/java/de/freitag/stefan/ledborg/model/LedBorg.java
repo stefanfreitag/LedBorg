@@ -1,6 +1,5 @@
 package de.freitag.stefan.ledborg.model;
 
-
 /**
  * LedBord interface.
  * @author Stefan Freitag (stefan@stefreitag.de)
@@ -30,6 +29,10 @@ public interface LedBorg {
      */
     void on();
 
+    /**
+     * Check if the LedBorg is on.
+     * @return {@code true} if the LedBorg is on. Otherwise {@code false} is returned.
+     */
     boolean isOn();
 
     /**
