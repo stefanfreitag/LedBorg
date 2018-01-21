@@ -3,7 +3,7 @@ package de.freitag.stefan.ledborg.rest;
 import io.dropwizard.Configuration;
 
 /**
- * Application configuration for LedBord REST.
+ * Application configuration for LedBorg REST.
  *
  * @author Stefan Freitag
  */

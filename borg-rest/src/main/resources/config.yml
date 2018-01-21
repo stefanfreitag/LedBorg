@@ -23,4 +23,5 @@ logging:
        currentLogFilename: ./log/ledborg-rest.log
        archivedLogFilenamePattern: ./log/ledborg-rest.log-%d{yyyy-MM-dd}-%i.log.gz
        archivedFileCount: 7
+       maxFileSize: 100MB
        timeZone: UTC
