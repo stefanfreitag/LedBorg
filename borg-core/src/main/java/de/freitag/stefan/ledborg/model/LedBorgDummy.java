@@ -1,6 +1,5 @@
 package de.freitag.stefan.ledborg.model;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,22 +10,17 @@ import org.apache.logging.log4j.Logger;
  */
 final class LedBorgDummy extends AbstractLedBorg {
 
-    /**
-     * The {@link Logger} for this class.
-     */
-    private final static Logger LOG = LogManager.getLogger(LedBorgDummy.class.getCanonicalName());
+  /** The {@link Logger} for this class. */
+  private static final Logger LOG = LogManager.getLogger(LedBorgDummy.class.getCanonicalName());
 
-    /**
-     * Initialize the {@link LedBorgDummy}.
-     */
-    public LedBorgDummy() {
-        super();
-    }
+  /** Initialize the {@link LedBorgDummy}. */
+  public LedBorgDummy() {
+    super();
+  }
 
-
-    @Override
-    public void setup() {
-        LOG.info("LedBorg setup");
-        this.off();
-    }
+  @Override
+  public void setup() {
+    LOG.info("LedBorg setup");
+    this.off();
+  }
 }

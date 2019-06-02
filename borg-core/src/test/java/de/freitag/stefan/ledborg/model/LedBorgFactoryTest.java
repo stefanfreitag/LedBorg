@@ -1,8 +1,8 @@
 package de.freitag.stefan.ledborg.model;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link LedBorgFactory}.
@@ -11,9 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 final class LedBorgFactoryTest {
 
-    @Test
-    void createWithNullThrowsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> LedBorgFactory.get(null));
-    }
-
+  @Test
+  void createWithNullThrowsNullPointerException() {
+    assertThrows(NullPointerException.class, () -> LedBorgFactory.get(null));
+  }
 }

@@ -2,70 +2,61 @@ package de.freitag.stefan.ledborg.model;
 
 /**
  * LedBord interface.
+ *
  * @author Stefan Freitag (stefan@stefreitag.de)
  */
 public interface LedBorg {
-    /**
-     * Setup the communication with the LedBorg.
-     */
-    void setup();
+  /** Setup the communication with the LedBorg. */
+  void setup();
 
-    /**
-     * Display the {@link Color} {@code color}.
-     *
-     * @param color The {@link Color} to display.
-     * @throws IllegalArgumentException if {@code color} is {@code null}.
-     */
-    void displayColor(Color color);
+  /**
+   * Display the {@link Color} {@code color}.
+   *
+   * @param color The {@link Color} to display.
+   * @throws IllegalArgumentException if {@code color} is {@code null}.
+   */
+  void displayColor(Color color);
 
-    /**
-     * Turn off the LedBorg by setting the displayed color to
-     * {@code Color.Black}
-     */
-    void off();
+  /** Turn off the LedBorg by setting the displayed color to {@code Color.Black} */
+  void off();
 
-    /**
-     * Turn on the LedBorg by displaying the last set {@link Color}.
-     */
-    void on();
+  /** Turn on the LedBorg by displaying the last set {@link Color}. */
+  void on();
 
-    /**
-     * Check if the LedBorg is on.
-     * @return {@code true} if the LedBorg is on. Otherwise {@code false} is returned.
-     */
-    boolean isOn();
+  /**
+   * Check if the LedBorg is on.
+   *
+   * @return {@code true} if the LedBorg is on. Otherwise {@code false} is returned.
+   */
+  boolean isOn();
 
-    /**
-     * Return the displayed {@link Color}.
-     *
-     * @return The displayed {@link Color}.
-     */
-    Color getDisplayedColor();
+  /**
+   * Return the displayed {@link Color}.
+   *
+   * @return The displayed {@link Color}.
+   */
+  Color getDisplayedColor();
 
-    /**
-     * Brightens up the displayed {@link Color} by one level.
-     */
-    void brighter();
+  /** Brightens up the displayed {@link Color} by one level. */
+  void brighter();
 
-    /**
-     * Darkens the displayed {@link Color} by one level.
-     */
-    void darker();
+  /** Darkens the displayed {@link Color} by one level. */
+  void darker();
 
-    /**
-     * Return if the LedBorg is blinking or not.
-     *
-     * @return {@code true} if the LedBorg is blinking, {@code false} otherwise.
-     */
-    boolean isBlinking();
+  /**
+   * Return if the LedBorg is blinking or not.
+   *
+   * @return {@code true} if the LedBorg is blinking, {@code false} otherwise.
+   */
+  boolean isBlinking();
 
-    /**
-     * Set the blink rate.
-     *
-     * @param blinkRate Blink rate in milliseconds
-     * @throws IllegalArgumentException if {@code blinkRate} is {@code null}.
-     */
-    void setBlinkRate(BlinkRate blinkRate);
+  /**
+   * Set the blink rate.
+   *
+   * @param blinkRate Blink rate in milliseconds
+   * @throws IllegalArgumentException if {@code blinkRate} is {@code null}.
+   */
+  void setBlinkRate(BlinkRate blinkRate);
 
-    void blink(boolean enable);
+  void blink(boolean enable);
 }
