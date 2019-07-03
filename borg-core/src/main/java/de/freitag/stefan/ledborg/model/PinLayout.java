@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
 
-import java.util.Objects;
-
 /**
  * Pin layout used as part of the {@link LedBorgImpl}.
  *
@@ -17,13 +15,9 @@ import java.util.Objects;
 final class PinLayout {
 
   /** The {@link com.pi4j.io.gpio.Pin} the red LED is connected to. */
-  @NonNull
-  private final Pin red;
+  @NonNull private final Pin red;
   /** The {@link com.pi4j.io.gpio.Pin} the green LED is connected to. */
-  @NonNull
-  private final Pin green;
+  @NonNull private final Pin green;
   /** The {@link com.pi4j.io.gpio.Pin} the blue LED is connected to. */
-  @NonNull
-  private final Pin blue;
-
+  @NonNull private final Pin blue;
 }
