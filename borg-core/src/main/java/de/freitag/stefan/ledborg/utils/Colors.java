@@ -1,4 +1,4 @@
-package de.freitag.stefan.ledborg.model.utils;
+package de.freitag.stefan.ledborg.utils;
 
 import de.freitag.stefan.ledborg.model.Color;
 import java.util.function.Function;
@@ -7,8 +7,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Colors {
 
-  public boolean inRange(final float value) {
-    return 0.0f <= value && value <= 1.0f;
+  public boolean isInRange(final float value) {
+    return value >= 0.0f && value <= 1.0f;
   }
 
   public Function<Color, Color> darker =

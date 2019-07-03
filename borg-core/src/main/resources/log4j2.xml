@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
     <Appenders>
-        <File name="LEDBORG" fileName="../log/borg-core.log" append="true">
+        <File name="BORG-REST" fileName="../log/borg-rest.log" append="true">
             <PatternLayout pattern="%t %-5p %c{2} - %m%n"/>
         </File>
         <Console name="STDOUT" target="SYSTEM_OUT">
@@ -11,7 +11,7 @@
     <Loggers>
         <Root level="info">
             <AppenderRef ref="STDOUT"/>
-            <AppenderRef ref="LEDBORG"/>
+            <AppenderRef ref="BORG-REST"/>
         </Root>
     </Loggers>
 </Configuration>

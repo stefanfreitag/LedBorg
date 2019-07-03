@@ -1,6 +1,6 @@
 package de.freitag.stefan.ledborg.model;
 
-import de.freitag.stefan.ledborg.model.utils.Colors;
+import de.freitag.stefan.ledborg.utils.Colors;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.apache.logging.log4j.LogManager;

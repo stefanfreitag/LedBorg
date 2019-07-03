@@ -1,4 +1,4 @@
-package de.freitag.stefan.ledborg.rest;
+package de.freitag.stefan.ledborg.controller;
 
 import io.dropwizard.Configuration;
 
@@ -7,5 +7,4 @@ import io.dropwizard.Configuration;
  *
  * @author Stefan Freitag
  */
-public final class LedBorgRestConfiguration extends Configuration {
-}
+public final class LedBorgRestConfiguration extends Configuration {}

@@ -19,7 +19,7 @@ final class LedBorgImpl extends AbstractLedBorg {
 
   /** Default layout. Taken from https://www.piborg.org/ledborg/specs. */
   private static final PinLayout DEFAULT_LAYOUT =
-      PinLayout.create(RaspiPin.GPIO_00, RaspiPin.GPIO_02, RaspiPin.GPIO_03);
+      PinLayout.builder().red(RaspiPin.GPIO_00).green(RaspiPin.GPIO_02).blue(RaspiPin.GPIO_03).build();
   /** The actual layout. */
   private final PinLayout layout;
   /** Initialize the LedBorg with the default pin layout given in {@link #DEFAULT_LAYOUT}. */
