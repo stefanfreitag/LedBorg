@@ -85,35 +85,6 @@ artifacts {
     archives javadocJar
 }
 
-findbugs {
-    ignoreFailures = true
-    reportsDir = file("$project.buildDir/reports/findbugs")
-    effort = "max"
-}
-
-
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-
-pmd {
-    ignoreFailures = true
-    ruleSets = [
-            "java-basic",
-            "java-braces",
-            "java-design",
-            "java-finalizers",
-            "java-junit",
-            "java-naming",
-            "java-optimizations",
-            "java-strings",
-            "java-unusedcode"
-    ]
-}
 
 jacocoTestReport {
     reports {

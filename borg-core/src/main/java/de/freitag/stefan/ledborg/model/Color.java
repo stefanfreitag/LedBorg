@@ -1,6 +1,5 @@
 package de.freitag.stefan.ledborg.model;
 
-import de.freitag.stefan.ledborg.utils.Colors;
 import lombok.Value;
 
 /** A color defined by float values [0;1] for red, green and blue. */

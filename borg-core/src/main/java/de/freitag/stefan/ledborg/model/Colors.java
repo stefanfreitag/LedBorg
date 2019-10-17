@@ -1,6 +1,5 @@
-package de.freitag.stefan.ledborg.utils;
+package de.freitag.stefan.ledborg.model;
 
-import de.freitag.stefan.ledborg.model.Color;
 import java.util.function.Function;
 import lombok.experimental.UtilityClass;
 
