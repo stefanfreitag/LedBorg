@@ -1,10 +1,65 @@
-# LedBorg Project
+= LedBorg Library
 
-The [LedBorg](https://www.piborg.org/ledborg) is an ultra bright RGB LED add-on board for my Raspberry Pi. For this board I decided to write a small Java
-library. For controlling the LedBorg from a remote machine I added a [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) interface.
+:toc:
 
-Hence the project is split into three parts:
+== Introduction
 
-  1. borg-core: Contains the library itself
-  2. borg-demo: Contains demo application
-  3. borg-rest: Offers access to the library via REST
+
+The https://www.piborg.org/ledborg[LedBorg] is an ultra bright RGB LED add-on board for my Raspberry Pi.
+For this board I decided to write a small Java library. For controlling the LedBorg from a remote machine
+I added a https://en.wikipedia.org/wiki/Representational_state_transfer[REST] interface.
+
+
+== Prerequisites
+The LedBorg is accessed via the https://en.wikipedia.org/wiki/I%C2%B2C[I2C] bus. You may require elevated
+permission for accessing this interface.
+
+
+=== Enabling the I2C interface
+
+* Run `sudo raspi-config`.
+* Use the down arrow to select _5 Interfacing Options_.
+* Arrow down to _P5 I2C_.
+* Select _yes_ when it asks you to enable I2C,
+* Also select _yes_ if it asks about automatically loading the kernel module.
+* Use the right arrow to select the _<Finish>_ button.
+* Select _yes_ when it asks to reboot.
+
+
+
+== Supported actions
+* Turning the LedBorg on/ off.
+* Reading and updating the displayed color.
+* Brighten and darken the displayed color.
+* Enable and disabling blinking.
+* Reading and updating the blink rate.
+
+== Example usage
+* Set/ update the displayed color
+
+[source,java]
+----
+final LedBorg ledborg = LedBorgFactory.get(LedBorgFactory.TYPE.REAL);
+ledborg.setup();
+ledborg.displayColor(new Color(1.0f,0.0f, 0.0f));
+----
+
+
+== REST Interface
+
+
+Start the applictaion
+[source,bash]
+----
+pi@raspberrypi:~/borg-core-1.6.0/bin $ ./borg-core server
+----
+
+
+== FAQ
+
+* Error `Unable to load [libpi4j.so] using path: [/lib/raspberrypi/dynamic/libpi4j.so]`
+[source,bash]
+----
+sudo apt install wiringpi
+----
+
