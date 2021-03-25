@@ -6,6 +6,7 @@ import de.freitag.stefan.ledborg.model.LedBorg;
 import de.freitag.stefan.ledborg.model.LedBorgFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import lombok.NonNull;
 import org.apache.log4j.Logger;
 
 @Path("/ledborg")
@@ -53,14 +54,14 @@ public final class LedBorgController extends HealthCheck {
         new Color(Float.valueOf(red), Float.valueOf(green), Float.valueOf(blue)));
   }
 
-  @GET
+  @POST
   @Path("/color/brighten")
   @Produces({MediaType.APPLICATION_JSON})
   public void brighten() {
     this.borg.brighter();
   }
 
-  @GET
+  @POST
   @Path("/color/darken")
   @Produces({MediaType.APPLICATION_JSON})
   public void darken() {
@@ -69,10 +70,7 @@ public final class LedBorgController extends HealthCheck {
 
   @PUT
   @Path("/power")
-  public void power(final @QueryParam("value") @DefaultValue("on") String value) {
-    if (value == null) {
-      throw new IllegalArgumentException("Value is null");
-    }
+  public void power(@NonNull final @QueryParam("value") @DefaultValue("on") String value) {
     if ("on".equalsIgnoreCase(value)) {
       this.borg.on();
       LOG.info("Powering LedBorg on");

@@ -1,7 +1,5 @@
 package de.freitag.stefan.ledborg.model;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -12,7 +10,11 @@ import org.junit.jupiter.api.Test;
 final class LedBorgFactoryTest {
 
   @Test
-  void createWithNullThrowsNullPointerException() {
-    assertThrows(NullPointerException.class, () -> LedBorgFactory.get(null));
+  void getLedBorgBasedOnType() {
+    LedBorg ledBorg = LedBorgFactory.get(LedBorgFactory.TYPE.REAL);
+    System.out.println(ledBorg);
+
+    LedBorg ledBorg2 = LedBorgFactory.get(LedBorgFactory.TYPE.DUMMY);
+    System.out.println(ledBorg2);
   }
 }

@@ -12,12 +12,12 @@ import lombok.Value;
  */
 @Builder
 @Value
-final class PinLayout {
+class PinLayout {
 
   /** The {@link com.pi4j.io.gpio.Pin} the red LED is connected to. */
-  @NonNull private final Pin red;
+  @NonNull Pin red;
   /** The {@link com.pi4j.io.gpio.Pin} the green LED is connected to. */
-  @NonNull private final Pin green;
+  @NonNull Pin green;
   /** The {@link com.pi4j.io.gpio.Pin} the blue LED is connected to. */
-  @NonNull private final Pin blue;
+  @NonNull Pin blue;
 }

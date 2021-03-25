@@ -1,6 +1,7 @@
 package de.freitag.stefan.ledborg.model;
 
-import java.util.Objects;
+import java.util.Optional;
+import lombok.NonNull;
 
 /** Factory for retrieving {@link LedBorg} implementations. */
 public class LedBorgFactory {
@@ -23,13 +24,10 @@ public class LedBorgFactory {
    * @param type The type of instance to retrieve.
    * @return A {@link LedBorg} instance.
    */
-  public static LedBorg get(final TYPE type) {
-    Objects.requireNonNull(type);
-    if (TYPE.DUMMY.equals(type)) {
-      return new LedBorgDummy();
-    } else if (TYPE.REAL.equals(type)) {
-      return new LedBorgImpl();
-    }
-    throw new IllegalArgumentException("Received unknown type " + type);
+  public static LedBorg get(@NonNull final TYPE type) {
+    return Optional.of(type)
+        .filter(t -> t.equals(TYPE.REAL))
+        .map(t -> (LedBorg) new LedBorgImpl())
+        .orElseGet(LedBorgDummy::new);
   }
 }

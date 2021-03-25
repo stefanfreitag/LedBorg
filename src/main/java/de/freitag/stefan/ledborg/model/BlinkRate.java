@@ -17,7 +17,7 @@ public enum BlinkRate {
   FIVE_SECONDS(5000L);
 
   /** Blink rate in milliseconds. */
-  private long blinkRate;
+  private final long blinkRate;
 
   /**
    * Create a new {@link BlinkRate}.
