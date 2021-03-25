@@ -1,186 +1,206 @@
 plugins {
-    id 'java'
-    id 'idea'
-    id 'jacoco'
-    id 'io.franzbecker.gradle-lombok' version '3.2.0'
-    id 'com.diffplug.gradle.spotless' version '3.24.2'
-    id 'com.github.kt3k.coveralls' version '2.8.2'
-    id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.8.0'
-    id 'application'
-    id "org.owasp.dependencycheck" version "5.2.2"
-
+	id 'java'
+	id 'jacoco'
+	id 'com.diffplug.spotless' version '5.10.2'
+	id 'com.github.kt3k.coveralls' version '2.10.2'
+	id 'maven-publish'
+	id 'com.jfrog.bintray' version '1.8.5'
+	id 'application'
+	id "org.owasp.dependencycheck" version "6.1.2"
+	id 'fr.brouillard.oss.gradle.jgitver'  version '0.10.0-rc03'
 }
 
-
-project.description = 'LedBorg REST-Interface'
-project.version = '1.0.2-SNAPSHOT'
-
-
+project.description = 'LedBorg Service'
 mainClassName = "de.freitag.stefan.ledborg.LedBorgRestApplication"
 
-
-project.description = 'LedBorg Core Library'
-project.version = '1.6.0'
-
 repositories {
-    mavenCentral()
-    maven {
-        url 'https://oss.sonatype.org/content/groups/public'
-    }
+	mavenCentral()
+	maven {
+		url 'https://oss.sonatype.org/content/groups/public'
+	}
 }
 
 
 dependencies {
-    compile group: 'com.pi4j', name: 'pi4j-core', version: '1.2'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.1'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
+	compileOnly 'org.projectlombok:lombok:1.18.16'
+	annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
-    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.2")
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.2")
-    testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
+	testCompileOnly ('org.projectlombok:lombok:1.18.16',
+			'org.apiguardian:apiguardian-api:1.0.0'
+			)
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
-    compile("io.dropwizard:dropwizard-core:1.3.17")
+	implementation(
+			"com.pi4j:pi4j-core:1.2",
+			"jakarta.xml.bind:jakarta.xml.bind-api:2.3.2",
+			"org.apache.logging.log4j:log4j-api:2.12.1",
+			"org.apache.logging.log4j:log4j-core:2.12.1",
+			"org.glassfish.jaxb:jaxb-runtime:2.3.2")
+	testCompile("org.junit.jupiter:junit-jupiter-api:5.0.2")
+	testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.2")
+
+	compile("io.dropwizard:dropwizard-core:1.3.17")
 }
 
 applicationDistribution.from("src/main/resources/config.yml") {
-    into "bin"
+	into "bin"
 }
 
 run {
-    args 'server', 'src/main/resources/config.yml'
+	args 'server', 'src/main/resources/config.yml'
 }
 
 
 compileJava {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
 }
 
 jar {
-    exclude('log4j2.xml')
-    manifest {
-        attributes 'Implementation-Title': 'LedBorg Library',
-                'Implementation-Version': version,
-                'Implementation-Vendor': 'Stefan Freitag',
-                'Created-By': System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')'
-    }
+	exclude('log4j2.xml')
+	manifest {
+		attributes 'Implementation-Title': 'LedBorg Library',
+		'Implementation-Version': version,
+		'Implementation-Vendor': 'Stefan Freitag',
+		'Created-By': System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')'
+	}
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    archiveClassifier = 'sources'
-    from sourceSets.main.allSource
+	archiveClassifier = 'sources'
+	from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier = 'javadoc'
-    from javadoc.destinationDir
+	archiveClassifier = 'javadoc'
+	from javadoc.destinationDir
 }
 
 artifacts {
-    archives sourcesJar
-    archives javadocJar
+	archives sourcesJar
+	archives javadocJar
 }
 
 
 jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
+	reports {
+		xml.enabled = true
+		html.enabled = true
+	}
 }
 
 spotless {
-    java {
-        googleJavaFormat('1.6')
-        lineEndings 'UNIX'
-    }
+	java {
+		target project.fileTree(project.rootDir) {
+			include '**/*.java'
+			exclude '**/generated/**'
+		}
+
+		googleJavaFormat("1.9")
+		removeUnusedImports()
+	}
+	groovy {
+		greclipse()
+		target project.fileTree(project.rootDir) {
+			include '**/build.gradle'
+		}
+	}
 }
 
 def pomConfig = {
-    inceptionYear '2015'
+	inceptionYear '2015'
 
-    licenses {
-        license {
-            name "The MIT License (MIT)"
-            url "https://github.com/stefanfreitag/LedBorg/blob/master/LICENSE"
-            distribution "repo"
-        }
-    }
+	licenses {
+		license {
+			name "The MIT License (MIT)"
+			url "https://github.com/stefanfreitag/LedBorg/blob/master/LICENSE"
+			distribution "repo"
+		}
+	}
 
-    scm {
-        connection 'scm:git:https://github.com/stefanfreitag/LedBorg/'
-        developerConnection 'scm:git:https://github.com/stefanfreitag/LedBorg/'
-        url 'https://github.com/stefanfreitag/LedBorg/'
-    }
-    developers {
-        developer {
-            id "sfreitag"
-            name "Stefan Freitag"
-            email "stefan@stefreitag.de"
-            timezone "Europe/Berlin"
-            roles {
-                role "developer"
-            }
-        }
-    }
+	scm {
+		connection 'scm:git:https://github.com/stefanfreitag/LedBorg/'
+		developerConnection 'scm:git:https://github.com/stefanfreitag/LedBorg/'
+		url 'https://github.com/stefanfreitag/LedBorg/'
+	}
+	developers {
+		developer {
+			id "sfreitag"
+			name "Stefan Freitag"
+			email "stefan@stefreitag.de"
+			timezone "Europe/Berlin"
+			roles {
+				role "developer"
+			}
+		}
+	}
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-            artifact sourcesJar
-            artifact javadocJar
+	publications {
+		mavenJava(MavenPublication) {
+			artifact jar
+			artifact sourcesJar
+			artifact javadocJar
 
-            groupId 'de.freitag.stefan.ledborg'
-            artifactId 'borg-core'
-            pom.withXml {
-                def root = asNode()
-                root.appendNode('description', 'Java library for accessing the LedBorg hardware')
-                root.children().last() + pomConfig
-            }
-        }
-    }
+			groupId 'de.freitag.stefan.ledborg'
+			artifactId 'borg-core'
+			pom.withXml {
+				def root = asNode()
+				root.appendNode('description', 'Java library for accessing the LedBorg hardware')
+				root.children().last() + pomConfig
+			}
+		}
+	}
 }
 
 bintrayUpload.dependsOn(build)
 
 bintray {
-    if (!project.hasProperty('bintray_user')) {
-        project.ext.bintray_user = 'default'
-    }
-    if (!project.hasProperty('bintray_api_key')) {
-        project.ext.bintray_api_key = 'default'
-    }
+	if (!project.hasProperty('bintray_user')) {
+		project.ext.bintray_user = 'default'
+	}
+	if (!project.hasProperty('bintray_api_key')) {
+		project.ext.bintray_api_key = 'default'
+	}
 
-    user = "$bintray_user"
-    key = "$bintray_api_key"
-    publications = ['mavenJava']
-    dryRun = false
-    publish = true
-    pkg {
-        repo = 'maven'
-        name = 'borg-rest'
-        desc = 'Allows RESTful access to LedBorg'
-        websiteUrl = 'https://github.com/stefanfreitag/LedBorg/'
-        issueTrackerUrl = 'https://github.com/stefanfreitag/LedBorg/issues'
-        vcsUrl = 'git://github.com/stefanfreitag/LedBorg.git'
-        licenses = ['MIT']
-        labels = []
-        publicDownloadNumbers = true
-        version {
-            name = project.version
-            vcsTag = project.version
-            gpg {
-                sign = true
-                passphrase = project.hasProperty('gpg_passphrase') ? gpg_passphrase : ''
-            }
-        }
-    }
+	user = "$bintray_user"
+	key = "$bintray_api_key"
+	publications = ['mavenJava']
+	dryRun = false
+	publish = true
+	pkg {
+		repo = 'maven'
+		name = 'borg-rest'
+		desc = 'Allows RESTful access to LedBorg'
+		websiteUrl = 'https://github.com/stefanfreitag/LedBorg/'
+		issueTrackerUrl = 'https://github.com/stefanfreitag/LedBorg/issues'
+		vcsUrl = 'git://github.com/stefanfreitag/LedBorg.git'
+		licenses = ['MIT']
+		labels = []
+		publicDownloadNumbers = true
+		version {
+			name = project.version
+			vcsTag = project.version
+			gpg {
+				sign = true
+				passphrase = project.hasProperty('gpg_passphrase') ? gpg_passphrase : ''
+			}
+		}
+	}
 }
 
 wrapper {
-    gradleVersion = "6.0.1"
-    distributionType = Wrapper.DistributionType.ALL
+	gradleVersion = "6.8.3"
+	distributionType = Wrapper.DistributionType.ALL
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(15)
+		vendor = JvmVendorSpec.ADOPTOPENJDK
+	}
+}
+jgitver {
+	strategy "MAVEN"
 }

@@ -7,6 +7,7 @@ import io.dropwizard.setup.Environment;
 import java.util.EnumSet;
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
+import lombok.NonNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -47,13 +48,9 @@ public final class LedBorgRestApplication extends Application<LedBorgRestConfigu
   }
 
   @Override
-  public void run(final LedBorgRestConfiguration configuration, final Environment environment) {
-    if (configuration == null) {
-      throw new IllegalArgumentException("Configuration is null.");
-    }
-    if (environment == null) {
-      throw new IllegalArgumentException("Environment is null.");
-    }
+  public void run(
+      @NonNull final LedBorgRestConfiguration configuration,
+      @NonNull final Environment environment) {
     final LedBorgController resource = new LedBorgController();
     final FilterRegistration.Dynamic cors =
         environment.servlets().addFilter("CORS", CrossOriginFilter.class);

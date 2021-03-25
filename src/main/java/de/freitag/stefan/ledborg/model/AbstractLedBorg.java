@@ -59,12 +59,12 @@ abstract class AbstractLedBorg implements LedBorg {
 
   @Override
   public final void brighter() {
-    this.displayColor(Colors.brighter.apply(this.color));
+    this.displayColor(Colors.brighten.apply(this.color));
   }
 
   @Override
   public final void darker() {
-    this.displayColor(Colors.darker.apply(this.color));
+    this.displayColor(Colors.darken.apply(this.color));
   }
 
   @Override
